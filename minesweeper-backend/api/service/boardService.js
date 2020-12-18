@@ -55,9 +55,11 @@ const revealEmptyAdjacentMines = (board, mineX, mineY) => {
 
       if (x >= 0 && y >= 0 && x < board.width && y < board.height) {
         const cell = board.rows[y][x];
-        if (!cell.revealed && !cell.hasMine && cell.noNearMines()) {
+        if (!cell.revealed && !cell.hasMine) {
           cell.reveal();
-          revealEmptyAdjacentMines(board, x, y);
+          if (cell.noNearMines()) {
+            revealEmptyAdjacentMines(board, x, y);
+          }
         }
       }
     }
