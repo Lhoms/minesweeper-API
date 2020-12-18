@@ -1,9 +1,10 @@
 const express = require('express');
-const { newBoard, revealCell } = require('./controller/boardController');
+const { getById, newBoard, revealCell } = require('./controller/boardController');
 
 const router = express.Router();
 
+router.get('/:id', getById);
 router.post('/', newBoard);
-router.post('/reveal', revealCell);
+router.post('/:id/reveal/:x/:y', revealCell);
 
 module.exports = router;

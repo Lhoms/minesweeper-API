@@ -1,3 +1,4 @@
+const { v4: uuid } = require('uuid');
 const Cell = require('./Cell');
 
 // 8x8    10 mines (default)
@@ -8,9 +9,13 @@ const Cell = require('./Cell');
 class Board {
   constructor(height, width, mines) {
     // info
+    this.id = uuid();
     this.height = height;
     this.width = width;
     this.mines = mines;
+    // TODO move
+    this.finished = false;
+
     this.rows = [];
     // fill (i = y axis) (j = x axis)
     for (let i = 0; i < height; i += 1) {

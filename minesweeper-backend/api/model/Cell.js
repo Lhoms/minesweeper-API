@@ -5,10 +5,24 @@ class Cell {
     this.nearMines = nearMines;
     this.hasMine = hasMine;
     this.flagged = flagged;
+    this.revealed = false;
+    this.exploded = false;
   }
 
   putMine() {
     this.hasMine = true;
+  }
+
+  noNearMines() {
+    return this.nearMines === 0;
+  }
+
+  reveal() {
+    this.revealed = true;
+  }
+
+  explode() {
+    this.exploded = true;
   }
 
   increaseNearMines() {
