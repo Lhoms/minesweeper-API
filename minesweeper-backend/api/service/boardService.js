@@ -23,7 +23,7 @@ const putMines = (board, height, width, mines) => {
   while (i < mines) {
     const x = Math.round(Math.random() * (width - 1));
     const y = Math.round(Math.random() * (height - 1));
-    if (!board.rows[y][x].hasMine) {
+    if (!board.rows[y][x].isMined()) {
       i += 1;
       insertMine(board, x, y);
     }
@@ -42,7 +42,7 @@ module.exports.getNewBoard = (height = 8, width = 8, mines = 10) => {
 module.exports.getById = (id) => {
   const board = boardRepository.getById(id);
   if (!board) {
-    throw new NotExistingBoard();
+    throw new NotExistingBoard(id);
   }
   return board;
 };
@@ -55,7 +55,7 @@ const revealEmptyAdjacentMines = (board, mineX, mineY) => {
 
       if (x >= 0 && y >= 0 && x < board.width && y < board.height) {
         const cell = board.rows[y][x];
-        if (!cell.revealed && !cell.hasMine) {
+        if (!cell.revealed && !cell.isMined()) {
           cell.reveal();
           if (cell.noNearMines()) {
             revealEmptyAdjacentMines(board, x, y);
@@ -70,7 +70,7 @@ const revealMines = (board) => {
   for (let i = 0; i < board.height; i += 1) {
     for (let j = 0; j < board.width; j += 1) {
       const cell = board.rows[i][j];
-      if (cell.hasMine) {
+      if (cell.isMined()) {
         cell.reveal();
       }
     }
@@ -79,7 +79,8 @@ const revealMines = (board) => {
 
 const evaluateReveal = (board, x, y) => {
   const cell = board.rows[y][x];
-  if (cell.hasMine) {
+  if (cell.isMined()) {
+    // the game has finished
     board.finished = true;
     cell.explode();
     revealMines(board);

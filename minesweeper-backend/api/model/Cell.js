@@ -9,6 +9,10 @@ class Cell {
     this.exploded = false;
   }
 
+  isMined() {
+    return this.hasMine;
+  }
+
   putMine() {
     this.hasMine = true;
   }
