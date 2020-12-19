@@ -9,6 +9,10 @@ class Cell {
     this.exploded = false;
   }
 
+  setFlag() {
+    this.flagged = !this.flagged;
+  }
+
   isMined() {
     return this.hasMine;
   }

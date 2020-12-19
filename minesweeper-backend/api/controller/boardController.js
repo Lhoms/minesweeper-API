@@ -31,3 +31,13 @@ module.exports.revealCell = (req, res) => {
     ErrorHandler.handle(res, e);
   }
 };
+
+module.exports.flagCell = (req, res) => {
+  const { id, x, y } = req.params;
+  try {
+    const board = boardService.flagCell(id, Number(x), Number(y));
+    res.json(board);
+  } catch (e) {
+    ErrorHandler.handle(res, e);
+  }
+};

@@ -14,4 +14,8 @@ export default class RestClient {
   revealMine(id, x, y) {
     return axios.post(`${URL}/${id}/reveal/${x}/${y}`);
   }
+  
+  flagMine(id, x, y) {
+    return axios.post(`${URL}/${id}/flag/${x}/${y}`);
+  }
 }

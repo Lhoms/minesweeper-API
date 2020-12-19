@@ -14,7 +14,10 @@ export class Cell extends React.Component {
     const {text, style} = generateTextAndStyle(nearMines, hasMine, flagged, revealed, exploded);
     return (
         <div>
-          <Button onClick={() => actionsOnClick(this.props)} variant="contained" style={style}> {text} </Button>
+          <Button variant="contained"
+                  onClick={() => actionsOnClick(this.props)} 
+                  onContextMenu={(e) => actionsOnRightClick(this.props, e)}
+                  style={style}> {text} </Button>
         </div>
     );
   }
@@ -24,7 +27,14 @@ const actionsOnClick = ({action, id, cell}) => {
   const restClient = new RestClient();
   restClient.revealMine(id, cell.x, cell.y);
   action();
-}
+};
+
+const actionsOnRightClick = ({action, id, cell}, e) => {
+  e.preventDefault();
+  const restClient = new RestClient();
+  restClient.flagMine(id, cell.x, cell.y);
+  action();
+};
 
 const generateTextAndStyle = (nearMines, hasMine, flagged, revealed, exploded) => {
   let text = '_';

@@ -105,3 +105,13 @@ module.exports.reveal = (boardId, x, y) => {
   boardRepository.save(board);
   return board;
 };
+
+module.exports.flagCell = (boardId, x, y, value) => {
+  const board = this.getById(boardId);
+
+  board.rows[y][x].setFlag(value);
+
+  boardRepository.save(board);
+  return board;
+};
+
