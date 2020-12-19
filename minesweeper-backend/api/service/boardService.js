@@ -95,6 +95,10 @@ const evaluateReveal = (board, x, y) => {
 module.exports.reveal = (boardId, x, y) => {
   const board = this.getById(boardId);
 
+  if (board.finished) {
+    return board;
+  }
+
   if (board.rows[y][x].revealed) {
     return board;
   }
@@ -108,6 +112,10 @@ module.exports.reveal = (boardId, x, y) => {
 
 module.exports.flagCell = (boardId, x, y, value) => {
   const board = this.getById(boardId);
+
+  if (board.finished) {
+    return board;
+  }
 
   board.rows[y][x].setFlag(value);
 
