@@ -25,6 +25,10 @@ class Board {
       }
     }
   }
+
+  finish() {
+    this.finished = true;
+  }
 }
 
 module.exports = Board;

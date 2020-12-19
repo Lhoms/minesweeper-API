@@ -1,5 +1,10 @@
 const express = require('express');
-const { getById, newBoard, revealCell, flagCell } = require('./controller/boardController');
+const {
+  getById,
+  newBoard,
+  revealCell,
+  flagCell,
+} = require('./controller/boardController');
 
 const router = express.Router();
 

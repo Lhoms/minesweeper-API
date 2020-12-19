@@ -1,6 +1,6 @@
 const ErrorHandler = require('../model/error/ErrorHandler');
 const boardService = require('../service/boardService');
-const {difficultyEnum} = require('../model/difficultyEnum');
+const { getDifficulty } = require('../service/difficultyService');
 
 module.exports.getById = (req, res) => {
   const { id } = req.params;
@@ -15,7 +15,7 @@ module.exports.getById = (req, res) => {
 
 module.exports.newBoard = (req, res) => {
   try {
-    const type = difficultyEnum.get(req.params.difficulty);
+    const type = getDifficulty(req.params.difficulty);
     const { height, width, mines } = type;
     const board = boardService.getNewBoard(height, width, mines);
     res.json(board);
@@ -43,5 +43,3 @@ module.exports.flagCell = (req, res) => {
     ErrorHandler.handle(res, e);
   }
 };
-
-

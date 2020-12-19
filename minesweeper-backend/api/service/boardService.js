@@ -81,12 +81,16 @@ const evaluateReveal = (board, x, y) => {
   const cell = board.rows[y][x];
   if (cell.isMined()) {
     // the game has finished
-    board.finished = true;
+    board.finish();
+    // explode to identify which mine finished the game
     cell.explode();
+    // reveal the other ones
     revealMines(board);
   } else if (cell.nearMines > 0) {
+    // just reveal near mines
     cell.reveal();
   } else {
+    // reveal and reveal the adjacent without near and the border ones
     cell.reveal();
     revealEmptyAdjacentMines(board, x, y);
   }
@@ -122,4 +126,3 @@ module.exports.flagCell = (boardId, x, y, value) => {
   boardRepository.save(board);
   return board;
 };
-
