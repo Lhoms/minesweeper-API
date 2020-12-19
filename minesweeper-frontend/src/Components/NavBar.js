@@ -34,7 +34,7 @@ export class NavBar extends React.Component {
               size="large"
               style={{ backgroundColor: "#FFBF46" }}
           >
-            Nuevo Juego
+            New Game
           </Button>
 
           <Button
@@ -43,7 +43,7 @@ export class NavBar extends React.Component {
               size="large"
               style={{ backgroundColor: "#FFBF46" }}
           >
-            Historial
+            History
           </Button>
         </div>
     );
