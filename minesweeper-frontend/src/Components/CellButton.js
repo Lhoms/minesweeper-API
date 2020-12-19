@@ -39,6 +39,7 @@ const actionsOnRightClick = ({action, id, cell}, e) => {
 const generateTextAndStyle = (nearMines, hasMine, flagged, revealed, exploded) => {
   let text = '_';
   const style = {
+    width: '30%',
     'color': 'black',
     'background-color': 'gray'
   };

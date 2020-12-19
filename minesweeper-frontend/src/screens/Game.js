@@ -1,6 +1,7 @@
 import React from 'react';
 import RestClient from "../rest/RestClient";
 import {Board} from '../Components/Board';
+import { useParams } from "react-router-dom";
 
 export class Game extends React.Component {
 
@@ -11,8 +12,9 @@ export class Game extends React.Component {
   }
 
   componentDidMount() {
+    const {difficulty} = this.props.match.params;
     const restClient = new RestClient();
-    restClient.newGame()
+    restClient.newGame(difficulty)
         .then(res => {
           this.setState({rows: res.data.rows, id: res.data.id, finished: res.data.finished});
         })
@@ -32,10 +34,10 @@ export class Game extends React.Component {
     return (
         <div style={{display: 'flex', 'flex-direction': 'column'}}>
           <div>
-            id: {id}
+            Game status: {finished ? "Finished!" : "Running"}
           </div>
           <div>
-            juego: {finished ? "Juego finalizado" : "Juego en curso"}
+            Game id: {id}
           </div>
           <Board action={this.handler} id={id} rows={rows}/>
         </div>

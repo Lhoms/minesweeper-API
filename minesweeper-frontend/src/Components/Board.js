@@ -28,6 +28,6 @@ export class Board extends React.Component {
 }
 
 const tableStyle = {
-  width: '50vw',
+  //width: '10vw',
   'align-self': 'center'
 };
