@@ -2,7 +2,7 @@ const Board = require('../model/Board');
 const NotExistingBoard = require('../model/error/NotExistingBoard');
 const boardRepository = require('../repository/boardRepository');
 
-const insertMine = (board, mineX, mineY) => {
+module.exports.insertMine = (board, mineX, mineY) => {
   // insert the mine in the cell
   board.rows[mineY][mineX].putMine();
 
@@ -25,7 +25,7 @@ const putMines = (board, height, width, mines) => {
     const y = Math.round(Math.random() * (height - 1));
     if (!board.rows[y][x].isMined()) {
       i += 1;
-      insertMine(board, x, y);
+      this.insertMine(board, x, y);
     }
   }
 };
