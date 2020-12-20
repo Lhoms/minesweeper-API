@@ -2,6 +2,9 @@
 
 Backend API and frontend services to play Minesweeper.
 
+### Where to play?
+Here: https://lhoms-minesweeper-back.herokuapp.com
+
 ### Backend  
 API developed in javascript using express.js framework.
 Jest for testing.
@@ -21,7 +24,9 @@ reveal cell in board
 POST https://localhost:3001/board/:id/reveal/:x/:y  
 
 flag cell in board 
-POST https://localhost:3001/board/:id/flag/:x/:y 
+POST https://localhost:3001/board/:id/flag/:x/:y
+
+(Also can be acceded from https://lhoms-minesweeper-back.herokuapp.com/ instead of localhost) 
 ```   
   
 For more details there is a swagger ui available to check endpoints details:  
@@ -33,10 +38,6 @@ How to use?
 `npm run start` Will start API listening port 3001.  
 
 `npm run test` To run test.  
-
-Important points
-- For now it does not have persistence, only in memory. It's delegated in a repository.
-- 
 
 ### Frontend
 Simple react app created to consume this api.  
@@ -53,9 +54,10 @@ How to use?
 `npm run start` Will open localhost:3000/ in browser (if not, do it manually).   
 
 
-Important points
+### Important points
 - It was designed only for desktop use, it is not responsive at all.
-
+- For now it does not have persistence, only in memory. It's delegated in a repository.
+- Heroku was really good to deploy it. It was fast and very good integrated. The only bad part is the latency, at least with a free dyno.
 
 
 ### Pending Features:
