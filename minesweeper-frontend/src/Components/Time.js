@@ -31,5 +31,5 @@ const secondsBetween = (creationDate, endDate) => {
   const date1 = new Date(creationDate);
   const date2 = endDate ? new Date(endDate) : new Date();
   const diff = date2.getTime() - date1.getTime();
-  return Math.round(diff / 1000);
+  return Math.floor(diff / 1000);
 };
