@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://localhost:3001/board";
+const URL = "https://lhoms-minesweeper-back.herokuapp.com/board";
 
 export default class RestClient {
   newGame(difficulty) {

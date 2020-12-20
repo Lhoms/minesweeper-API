@@ -15,7 +15,7 @@
   "schemes": [
     "http"
   ],
-  "host": "localhost:3001",
+  "host": "https://lhoms-minesweeper-back.herokuapp.com/",
   "basePath": "/",
   "paths": {
     "/board/{id}": {
