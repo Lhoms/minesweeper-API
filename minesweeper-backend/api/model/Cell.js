@@ -29,6 +29,10 @@ class Cell {
     this.revealed = true;
   }
 
+  isRevealed() {
+    return this.revealed;
+   }
+
   explode() {
     this.exploded = true;
   }

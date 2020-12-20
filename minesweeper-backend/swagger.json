@@ -270,6 +270,15 @@
         "finished": {
           "type": "boolean"
         },
+        "win": {
+          "type": "boolean"
+        },
+        "creationDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
         "rows": {
           "type": "array",
           "items": {

@@ -13,8 +13,10 @@ class Board {
     this.height = height;
     this.width = width;
     this.mines = mines;
-    // TODO move
     this.finished = false;
+    this.win = false;
+    this.creationDate = new Date();
+    this.endDate = null;
 
     this.rows = [];
     // fill (i = y axis) (j = x axis)
@@ -26,8 +28,13 @@ class Board {
     }
   }
 
+  winGame() {
+    this.win = true;
+  }
+
   finish() {
     this.finished = true;
+    this.endDate = new Date();
   }
 }
 

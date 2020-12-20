@@ -77,6 +77,15 @@ const revealMines = (board) => {
   }
 };
 
+const evaluateEndGame = (board) => {
+  const mined = board.rows.flatMap((row) => row.filter((x) => x.isMined())).length;
+  const notRevealed = board.rows.flatMap((row) => row.filter((x) => !x.isRevealed())).length;
+  if (mined === notRevealed) {
+    board.finish();
+    board.winGame();
+  }
+};
+
 const evaluateReveal = (board, x, y) => {
   const cell = board.rows[y][x];
   if (cell.isMined()) {
@@ -94,6 +103,8 @@ const evaluateReveal = (board, x, y) => {
     cell.reveal();
     revealEmptyAdjacentMines(board, x, y);
   }
+
+  evaluateEndGame(board);
 };
 
 module.exports.reveal = (boardId, x, y) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import RestClient from "../rest/RestClient";
 import {Board} from '../Components/Board';
-import { useParams } from "react-router-dom";
+import { Time } from "../Components/Time";
 
 export class Game extends React.Component {
 
@@ -16,7 +16,13 @@ export class Game extends React.Component {
     const restClient = new RestClient();
     restClient.newGame(difficulty)
         .then(res => {
-          this.setState({rows: res.data.rows, id: res.data.id, finished: res.data.finished});
+          this.setState({
+            rows: res.data.rows,
+            id: res.data.id,
+            finished: res.data.finished,
+            win: res.data.win,
+            creationDate: res.data.creationDate,
+            endDate: res.data.endDate});
         })
   }
 
@@ -25,16 +31,23 @@ export class Game extends React.Component {
     const restClient = new RestClient();
     restClient.getGame(this.state.id)
         .then(res => {
-          this.setState({rows: res.data.rows, id: res.data.id, finished: res.data.finished});
+          this.setState({
+            rows: res.data.rows,
+            id: res.data.id,
+            finished: res.data.finished,
+            win: res.data.win,
+            creationDate: res.data.creationDate,
+            endDate: res.data.endDate});
         })
   }
 
   render() {
-    const {rows, id, finished} = this.state;
+    const {rows, id, finished, win, creationDate, endDate} = this.state;
     return (
         <div style={{display: 'flex', 'flex-direction': 'column'}}>
-          <div>
-            Game status: {finished ? "Finished!" : "Running"}
+          <div style={{fontSize: '2vh'}}>
+            Game status: {finished ? `Game Over! You ${win ? 'WIN! :D' : 'lose :('}` : `Running...`}
+            <Time creationDate={creationDate} endDate={endDate}/>
           </div>
           <div>
             Game id: {id}
