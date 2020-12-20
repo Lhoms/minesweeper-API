@@ -31,5 +31,6 @@ const secondsBetween = (creationDate, endDate) => {
   const date1 = new Date(creationDate);
   const date2 = endDate ? new Date(endDate) : new Date();
   const diff = date2.getTime() - date1.getTime();
-  return Math.floor(diff / 1000);
+  // This check is needed because difference between servers
+  return diff < 0 ? 0 : Math.floor(diff / 1000);
 };
