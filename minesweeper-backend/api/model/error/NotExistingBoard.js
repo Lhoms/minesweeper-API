@@ -1,7 +1,7 @@
 class NotExistingBoard extends Error {
-  constructor(id) {
+  constructor(id, user) {
     super();
-    this.message = id ? `Board id ${id} not found!` : 'Board not found!';
+    this.message = (id && user) ? `Board id ${id} for user ${user} not found!` : 'Board not found!';
     this.code = 404;
   }
 }

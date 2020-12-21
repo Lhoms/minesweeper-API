@@ -30,19 +30,19 @@ const putMines = (board, height, width, mines) => {
   }
 };
 
-module.exports.getNewBoard = (height = 8, width = 8, mines = 10) => {
+module.exports.getNewBoard = (user, height = 8, width = 8, mines = 10) => {
   // number of mines should be less than number of cells
   const boardMines = mines <= height * width ? mines : height * width;
-  const board = new Board(height, width, boardMines);
+  const board = new Board(user, height, width, boardMines);
   putMines(board, height, width, boardMines);
   boardRepository.save(board);
   return board;
 };
 
-module.exports.getById = (id) => {
-  const board = boardRepository.getById(id);
+module.exports.getByIdAndUser = (id, user) => {
+  const board = boardRepository.getByIdAndUser(id, user);
   if (!board) {
-    throw new NotExistingBoard(id);
+    throw new NotExistingBoard(id, user);
   }
   return board;
 };
@@ -107,32 +107,31 @@ const evaluateReveal = (board, x, y) => {
   evaluateEndGame(board);
 };
 
-module.exports.reveal = (boardId, x, y) => {
-  const board = this.getById(boardId);
+module.exports.reveal = (boardId, user, x, y) => {
+  const board = this.getByIdAndUser(boardId, user);
 
   if (board.finished) {
     return board;
   }
 
-  if (board.rows[y][x].revealed) {
+  if (board.rows[y][x].isRevealed()) {
     return board;
   }
 
   evaluateReveal(board, x, y);
-  board.rows[y][x].revealed = true;
 
   boardRepository.save(board);
   return board;
 };
 
-module.exports.flagCell = (boardId, x, y, value) => {
-  const board = this.getById(boardId);
+module.exports.flagCell = (boardId, user, x, y) => {
+  const board = this.getByIdAndUser(boardId, user);
 
   if (board.finished) {
     return board;
   }
 
-  board.rows[y][x].setFlag(value);
+  board.rows[y][x].setFlag();
 
   boardRepository.save(board);
   return board;

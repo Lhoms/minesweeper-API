@@ -6,7 +6,8 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
-const boardRoutes = require('./api/boardRoutes');
+const boardRoutes = require('./api/routes/board');
+const userRoutes = require('./api/routes/user');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/board', boardRoutes);
+app.use('/game', boardRoutes);
+app.use('/user', userRoutes);
 
 module.exports = app;

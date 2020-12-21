@@ -1,12 +1,12 @@
 const ErrorHandler = require('../model/error/ErrorHandler');
 const boardService = require('../service/boardService');
+const userService = require('../service/userService');
 const { getDifficulty } = require('../service/difficultyService');
 
 module.exports.getById = (req, res) => {
-  const { id } = req.params;
+  const { id, user } = req.params;
   try {
-    const board = boardService.getById(id);
-    // send or json?
+    const board = boardService.getByIdAndUser(id, user);
     res.json(board);
   } catch (e) {
     ErrorHandler.handle(res, e);
@@ -15,9 +15,12 @@ module.exports.getById = (req, res) => {
 
 module.exports.newBoard = (req, res) => {
   try {
+    const { user } = req.params;
+    userService.validateUser(user);
+    // receive custom?
     const type = getDifficulty(req.params.difficulty);
     const { height, width, mines } = type;
-    const board = boardService.getNewBoard(height, width, mines);
+    const board = boardService.getNewBoard(user, height, width, mines);
     res.json(board);
   } catch (e) {
     ErrorHandler.handle(res, e);
@@ -25,9 +28,15 @@ module.exports.newBoard = (req, res) => {
 };
 
 module.exports.revealCell = (req, res) => {
-  const { id, x, y } = req.params;
+  const {
+    id,
+    user,
+    x,
+    y,
+  } = req.params;
+
   try {
-    const board = boardService.reveal(id, Number(x), Number(y));
+    const board = boardService.reveal(id, user, Number(x), Number(y));
     res.json(board);
   } catch (e) {
     ErrorHandler.handle(res, e);
@@ -35,9 +44,15 @@ module.exports.revealCell = (req, res) => {
 };
 
 module.exports.flagCell = (req, res) => {
-  const { id, x, y } = req.params;
+  const {
+    id,
+    user,
+    x,
+    y,
+  } = req.params;
+
   try {
-    const board = boardService.flagCell(id, Number(x), Number(y));
+    const board = boardService.flagCell(id, user, Number(x), Number(y));
     res.json(board);
   } catch (e) {
     ErrorHandler.handle(res, e);

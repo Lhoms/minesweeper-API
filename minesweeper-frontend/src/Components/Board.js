@@ -9,14 +9,14 @@ export class Board extends React.Component {
   }
 
   render() {
-    const {rows, action, id} = this.props;
+    const {rows, action, id, user} = this.props;
     return (
         <div style={tableStyle}>
           <Table>
             <tbody>
               {rows.map(row => {
                 return <TableRow>
-                  {row.map(cell => <td key={cell.x + cell.y}> <Cell id={id} action={action} cell={cell} /> </td>)}
+                  {row.map(cell => <td key={cell.x + cell.y}> <Cell id={id} user={user} action={action} cell={cell} /> </td>)}
                 </TableRow>
               })
               }

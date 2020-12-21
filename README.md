@@ -9,28 +9,42 @@ Here: https://lhoms-minesweeper-back.herokuapp.com
 API developed in javascript using express.js framework.
 Jest for testing.
 
-Endpoints:
+Endpoints to handle game actions:
 ```
 get board by id
-GET  https://localhost:3001/board/:id
+GET  http://localhost:3001/game/:user/board/:id
 
 create new board 
-POST https://localhost:3001/board/ 
+POST http://localhost:3001/game/:user/board/ 
 
 new board with custom difficulty
-POST https://localhost:3001/board/:difficulty
+POST http://localhost:3001/game/:user/board/:difficulty
 
 reveal cell in board
-POST https://localhost:3001/board/:id/reveal/:x/:y  
+POST http://localhost:3001/game/:user/board/:id/reveal/:x/:y  
 
 flag cell in board 
-POST https://localhost:3001/board/:id/flag/:x/:y
+POST http://localhost:3001/game/:user/board/:id/flag/:x/:y
 
-(Also can be acceded from https://lhoms-minesweeper-back.herokuapp.com/ instead of localhost) 
+(Also can be accessed from https://lhoms-minesweeper-back.herokuapp.com/ instead of localhost:3001) 
 ```   
   
+    
+Simple user api
+```
+get all users  
+GET  http://localhost:3001/user/user  
+  
+get user by id
+GET http://localhost:3001/user/:id
+
+create user
+POST http://localhost:3001/user/:id
+ ```
+
 For more details there is a swagger ui available to check endpoints details:  
-`http://localhost:3001/api-docs`
+`http://localhost:3001/api-docs`  
+`https://lhoms-minesweeper-back.herokuapp.com/api-docs`
 
 How to use?
 
@@ -62,6 +76,4 @@ How to use?
 
 ### Pending Features:
 - Persistence
-- Time Tracking
 - Game history / resume
-- Multiple user support

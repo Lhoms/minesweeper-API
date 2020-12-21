@@ -12,13 +12,14 @@ export class Game extends React.Component {
   }
 
   componentDidMount() {
-    const {difficulty} = this.props.match.params;
+    const {difficulty, user} = this.props.match.params;
     const restClient = new RestClient();
-    restClient.newGame(difficulty)
+    restClient.newGame(difficulty, user)
         .then(res => {
           this.setState({
             rows: res.data.rows,
             id: res.data.id,
+            user: res.data.user,
             finished: res.data.finished,
             win: res.data.win,
             creationDate: res.data.creationDate,
@@ -29,11 +30,12 @@ export class Game extends React.Component {
   // board has changed
   handler() {
     const restClient = new RestClient();
-    restClient.getGame(this.state.id)
+    restClient.getGame(this.state.id, this.state.user)
         .then(res => {
           this.setState({
             rows: res.data.rows,
             id: res.data.id,
+            user: res.data.user,
             finished: res.data.finished,
             win: res.data.win,
             creationDate: res.data.creationDate,
@@ -42,9 +44,9 @@ export class Game extends React.Component {
   }
 
   render() {
-    const {rows, id, finished, win, creationDate, endDate} = this.state;
+    const {rows, id, user, finished, win, creationDate, endDate} = this.state;
     return (
-        <div style={{display: 'flex', 'flex-direction': 'column'}}>
+        <div style={{display: 'flex', 'flex-direction': 'column', padding: '7%'}}>
           <div style={{fontSize: '2vh'}}>
             Game status: {finished ? `Game Over! You ${win ? 'WIN! :D' : 'lose :('}` : `Running...`}
             <Time creationDate={creationDate} endDate={endDate}/>
@@ -52,7 +54,7 @@ export class Game extends React.Component {
           <div>
             Game id: {id}
           </div>
-          <Board action={this.handler} id={id} rows={rows}/>
+          <Board action={this.handler} id={id} user={user} rows={rows}/>
         </div>
     );
   }

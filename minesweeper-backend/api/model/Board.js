@@ -7,9 +7,10 @@ const Cell = require('./Cell');
 // custom?
 
 class Board {
-  constructor(height, width, mines) {
+  constructor(user, height, width, mines) {
     // info
     this.id = uuid();
+    this.user = user;
     this.height = height;
     this.width = width;
     this.mines = mines;

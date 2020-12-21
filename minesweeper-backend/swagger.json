@@ -18,14 +18,21 @@
   "host": "https://lhoms-minesweeper-back.herokuapp.com/",
   "basePath": "/",
   "paths": {
-    "/board/{id}": {
+    "game/{user}/board/{id}": {
       "get": {
         "summary": "Get board",
-        "description": "Gets minesweeper board by id",
+        "description": "Gets minesweeper user board by id",
         "produces": [
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "Username owner of the board.",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "id",
             "in": "path",
@@ -62,12 +69,21 @@
         }
       }
     },
-    "/board": {
+    "game/{user}/board": {
       "post": {
         "summary": "Create board",
-        "description": "Creates new minesweeper board with default difficulty (easy).",
+        "description": "Creates new minesweeper board for this user with default difficulty (easy).",
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "Username owner of the board.",
+            "required": true,
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
@@ -91,7 +107,7 @@
         }
       }
     },
-    "/board/{difficulty}": {
+    "game/{user}/board/{difficulty}": {
       "post": {
         "summary": "Create board",
         "description": "Creates new minesweeper board with custom difficulty or default one",
@@ -99,6 +115,13 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "Username owner of the board.",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "difficulty",
             "in": "path",
@@ -134,7 +157,7 @@
         }
       }
     },
-    "/board/{id}/reveal/{x}/{y}": {
+    "game/{user}/board/{id}/reveal/{x}/{y}": {
       "post": {
         "summary": "Reveal cell",
         "description": "Reveals cell in the selected (x, y) coords position.",
@@ -142,6 +165,13 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "Username owner of the board.",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "id",
             "in": "path",
@@ -192,7 +222,7 @@
         }
       }
     },
-    "/board/{id}/flag/{x}/{y}": {
+    "game/{user}/board/{id}/flag/{x}/{y}": {
       "post": {
         "summary": "Flag cell",
         "description": "Flags or un-flag cell in the selected (x, y) coords position.",
@@ -200,6 +230,13 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "Username owner of the board.",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "id",
             "in": "path",
@@ -233,6 +270,118 @@
             "description": "Board not found.",
             "schema": {
               "$ref": "#/definitions/error"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "Get all users",
+        "description": "Gets all application users",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrieved",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "summary": "Get user",
+        "description": "Gets username by id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Username id.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrieved",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "404": {
+            "description": "User not found.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create user",
+        "description": "Creates username in the application.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Username id.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrieved",
+            "schema": {
+              "$ref": "#/definitions/user"
             }
           },
           "400": {
@@ -316,6 +465,14 @@
         },
         "exploded": {
           "type": "boolean"
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
         }
       }
     },

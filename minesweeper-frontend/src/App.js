@@ -9,15 +9,15 @@ function App() {
       <div className="App">
         <div style={appStyle}>
           <div style={{padding: "5%"}}>
-            <Router>
+            <Router id="router">
               <NavBar/>
               <Switch>
                 <Route
-                    path="/game/:difficulty"
+                    path="/game/:user/:difficulty"
                     component={Game}
                 />
-                <Route path="/game/:id">
-                  <Game/>
+                <Route path="/game/:user/:id">
+                  component={Game}
                 </Route>
               </Switch>
             </Router>

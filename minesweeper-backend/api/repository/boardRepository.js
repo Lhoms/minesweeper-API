@@ -1,9 +1,9 @@
 const boards = [];
 
-module.exports.getById = (id) => boards.find((x) => x.id === id);
+module.exports.getByIdAndUser = (id, user) => boards.find((x) => x.id === id && x.user === user);
 
 module.exports.save = (board) => {
-  const i = boards.findIndex((x) => x.id === board.id);
+  const i = boards.findIndex((x) => x.id === board.id && x.user === board.user);
   if (i !== -1) {
     boards[i] = board;
   } else {

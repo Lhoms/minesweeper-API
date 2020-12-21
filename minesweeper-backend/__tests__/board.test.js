@@ -3,7 +3,7 @@ const NotExistingBoard = require('../api/model/error/NotExistingBoard');
 
 describe('Board Creation', () => {
   test('create new default board', () => {
-    const newBoard = boardService.getNewBoard(/* default config */);
+    const newBoard = boardService.getNewBoard('user' /* default config */);
     expect(newBoard).toBeDefined();
     expect(newBoard.id).toBeDefined();
   });
@@ -13,7 +13,7 @@ describe('Board Creation', () => {
     const width = 8;
     const mines = 10;
 
-    const newBoard = boardService.getNewBoard(height, width, mines);
+    const newBoard = boardService.getNewBoard('user', height, width, mines);
     expect(newBoard).toBeDefined();
     expect(newBoard.id).toBeDefined();
   });
@@ -28,20 +28,20 @@ describe('Board Creation', () => {
     const width = 8;
     const mines = 99999;
 
-    const newBoard = boardService.getNewBoard(height, width, mines);
+    const newBoard = boardService.getNewBoard('user', height, width, mines);
     expect(newBoard.mines).toEqual(height * width);
   });
 });
 
 describe('Get Board', () => {
   test('Get existing board', () => {
-    const { id } = boardService.getNewBoard(/* default config */);
-    const board = boardService.getById(id);
+    const { id } = boardService.getNewBoard('user' /* default config */);
+    const board = boardService.getByIdAndUser(id, 'user');
     expect(board).toBeDefined();
   });
 
   test('NotExistingBoard error on get no existing board', () => {
-    expect(() => boardService.getById('42')).toThrow(NotExistingBoard);
+    expect(() => boardService.getByIdAndUser('42', 'user_2')).toThrow(NotExistingBoard);
   });
 });
 
@@ -51,7 +51,7 @@ describe('Mine insertion', () => {
     const height = 3;
     const width = 3;
     const mines = 0;
-    const board = boardService.getNewBoard(height, width, mines);
+    const board = boardService.getNewBoard('user', height, width, mines);
 
     // Inserting one in the middle (1, 1)
     boardService.insertMine(board, 1, 1);
@@ -77,10 +77,10 @@ describe('Reveal mine', () => {
     const height = 2;
     const width = 2;
     const mines = 4;
-    const {id} = boardService.getNewBoard(height, width, mines);
+    const { id } = boardService.getNewBoard('user', height, width, mines);
 
-    boardService.reveal(id, 0, 0);
-    const board = boardService.getById(id);
+    boardService.reveal(id, 'user', 0, 0);
+    const board = boardService.getByIdAndUser(id, 'user');
 
     // Selected one
     expect(board.rows[0][0].revealed).toEqual(true);
@@ -92,10 +92,10 @@ describe('Reveal mine', () => {
     const height = 2;
     const width = 2;
     const mines = 4;
-    const {id} = boardService.getNewBoard(height, width, mines);
+    const { id } = boardService.getNewBoard('user', height, width, mines);
 
-    boardService.reveal(id, 0, 0);
-    const board = boardService.getById(id);
+    boardService.reveal(id, 'user', 0, 0);
+    const board = boardService.getByIdAndUser(id, 'user');
 
     // Not the selected one
     expect(board.rows[1][1].revealed).toEqual(true);
@@ -108,10 +108,10 @@ describe('Flag mine', () => {
     // 2 x 2 board
     const height = 2;
     const width = 2;
-    const { id } = boardService.getNewBoard(height, width);
+    const { id } = boardService.getNewBoard('user', height, width);
 
-    boardService.flagCell(id, 0, 0);
-    const board = boardService.getById(id);
+    boardService.flagCell(id, 'user', 0, 0);
+    const board = boardService.getByIdAndUser(id, 'user');
 
     expect(board.rows[0][0].flagged).toEqual(true);
   });
@@ -120,10 +120,10 @@ describe('Flag mine', () => {
     // 2 x 2 board
     const height = 2;
     const width = 2;
-    const { id } = boardService.getNewBoard(height, width);
+    const { id } = boardService.getNewBoard('user', height, width);
 
-    boardService.flagCell(id, 0, 0);
-    const board = boardService.getById(id);
+    boardService.flagCell(id, 'user', 0, 0);
+    const board = boardService.getByIdAndUser(id, 'user');
 
     // Check other cell
     expect(board.rows[1][1].flagged).toEqual(false);
@@ -133,14 +133,14 @@ describe('Flag mine', () => {
     // 3 x 3 board
     const height = 3;
     const width = 3;
-    const { id } = boardService.getNewBoard(height, width);
+    const { id } = boardService.getNewBoard('user', height, width);
 
     // Flag
-    boardService.flagCell(id, 0, 0);
+    boardService.flagCell(id, 'user', 0, 0);
     // Un-flag
-    boardService.flagCell(id, 0, 0);
+    boardService.flagCell(id, 'user', 0, 0);
 
-    const board = boardService.getById(id);
-    expect(board.rows[1][1].flagged).toEqual(false);
+    const board = boardService.getByIdAndUser(id, 'user');
+    expect(board.rows[1][0].flagged).toEqual(false);
   });
 });
