@@ -15,13 +15,10 @@ get board by id
 GET  http://localhost:3001/game/:user/board/:id
 
 create new board 
-POST http://localhost:3001/game/:user/board/ 
+POST http://localhost:3001/game/:user/board
 
 get all user's boards 
 GET http://localhost:3001/game/:user/board 
-
-new board with custom difficulty
-POST http://localhost:3001/game/:user/board/:difficulty
 
 reveal cell in board
 POST http://localhost:3001/game/:user/board/:id/reveal/:x/:y  

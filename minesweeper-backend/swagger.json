@@ -72,7 +72,7 @@
     "game/{user}/board": {
       "post": {
         "summary": "Create board",
-        "description": "Creates new minesweeper board for this user with default difficulty (easy).",
+        "description": "Creates new minesweeper board for this user",
         "produces": [
           "application/json"
         ],
@@ -82,6 +82,40 @@
             "in": "path",
             "description": "Username owner of the board.",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "difficulty",
+            "in": "query",
+            "description": "Selects difficulty of the board (8x8) (16x16) (16x25), if none is chosen the default is 'easy'.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "easy",
+              "medium",
+              "hard",
+              "custom"
+            ]
+          },
+          {
+            "name": "height",
+            "in": "query",
+            "description": "Height of the new custom board. Mandatory if difficulty is 'custom'.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "width",
+            "in": "query",
+            "description": "Width of the new custom board. Mandatory if difficulty is 'custom'.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "mines",
+            "in": "query",
+            "description": "Quantity of mines in the new custom board. Mandatory if difficulty is 'custom'.",
+            "required": false,
             "type": "string"
           }
         ],
@@ -134,56 +168,6 @@
             "description": "User not found.",
             "schema": {
               "$ref": "#/definitions/error"
-            }
-          },
-          "400": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/error"
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "schema": {
-              "$ref": "#/definitions/error"
-            }
-          }
-        }
-      }
-    },
-    "game/{user}/board/{difficulty}": {
-      "post": {
-        "summary": "Create board",
-        "description": "Creates new minesweeper board with custom difficulty or default one",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "user",
-            "in": "path",
-            "description": "Username owner of the board.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "difficulty",
-            "in": "path",
-            "description": "Selects difficulty of the board (8x8) (16x16) (16x25), if none is chosen the default is 'easy'.",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "easy",
-              "medium",
-              "hard"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successfully created.",
-            "schema": {
-              "$ref": "#/definitions/boardResponse"
             }
           },
           "400": {

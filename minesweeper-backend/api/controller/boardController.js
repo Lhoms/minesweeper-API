@@ -27,8 +27,8 @@ module.exports.newBoard = (req, res) => {
   try {
     const { user } = req.params;
     userService.validateUser(user);
-    // receive custom?
-    const type = getDifficulty(req.params.difficulty);
+
+    const type = getDifficulty(req.query);
     const { height, width, mines } = type;
     const board = boardService.getNewBoard(user, height, width, mines);
     res.json(board);

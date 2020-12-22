@@ -8,7 +8,7 @@ export default class RestClient {
 
   // board
   newGame(difficulty, user) {
-    return axios.post(gameUrl(user, `/${difficulty}`));
+    return axios.post(gameUrl(user, `?difficulty=${difficulty}`));
   }
   
   getGame(id, user) {
