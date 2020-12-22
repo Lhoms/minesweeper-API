@@ -1,14 +1,27 @@
-const users = [{ id: 'lhoms' }];
+const redisClient = require('./redisClient');
+const User = require('../model/User');
 
-module.exports.get = (id) => users.find((x) => x.id === id);
+const USERS_HSET = 'users';
 
-module.exports.getAll = () => users;
+// Helpers
 
-module.exports.save = (user) => {
-  const i = users.findIndex((x) => x.id === user.id);
-  if (i !== -1) {
-    users[i] = user;
-  } else {
-    users.push(user);
-  }
+const createUserFromString = (string) => Object.assign(new User(), JSON.parse(string));
+
+// Repository methods
+
+module.exports.get = async (id) => {
+  const user = await redisClient.hgetAsync(USERS_HSET, id);
+  return createUserFromString(user);
 };
+
+module.exports.delete = async (id) => {
+  const user = await redisClient.hdelAsync(USERS_HSET, id);
+  return createUserFromString(user);
+};
+
+module.exports.getAll = async () => {
+  const users = await redisClient.hgetAllAsync(USERS_HSET);
+  return users ? Object.values(users).map(createUserFromString) : [];
+};
+
+module.exports.save = (user) => redisClient.hsetAsync(USERS_HSET, user.id, JSON.stringify(user));
