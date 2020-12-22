@@ -14,6 +14,10 @@ export default class RestClient {
   getGame(id, user) {
     return axios.get(gameUrl(user,`/${id}`));
   }
+
+  getGames(user) {
+    return axios.get(gameUrl(user));
+  }
   
   revealMine(id, x, y, user) {
     return axios.post(gameUrl(user,`/${id}/reveal/${x}/${y}`));

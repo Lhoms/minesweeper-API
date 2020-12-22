@@ -17,6 +17,9 @@ GET  http://localhost:3001/game/:user/board/:id
 create new board 
 POST http://localhost:3001/game/:user/board/ 
 
+get all user's boards 
+GET http://localhost:3001/game/:user/board 
+
 new board with custom difficulty
 POST http://localhost:3001/game/:user/board/:difficulty
 
@@ -57,23 +60,30 @@ How to use?
 Simple react app created to consume this api.  
 In this app is possible to select difficulty and create a new game using the api.
 
-With left-click you can reveal the board cells.
+#### How to play?  
+
+You have to select difficulty then select an username or create a new one.  
+Once you have selected difficulty and user, you can create a new game.  
+With left-click you can reveal the board cells.  
 With right-click you can flag/un-flag the cells.
 
-One you reveal a bomb the game is finished and you should start another. Is not possible to continue.
+You can resume a game selecting the game-row in history screen.   
+You just only have to select the username and click on History button.     
+
+Once you reveal a bomb the game is finished and you should start another. Is not possible to continue.
+
   
-How to use?  
+#### How to use?  
   
 `npm install` To install dependencies.  
 `npm run start` Will open localhost:3000/ in browser (if not, do it manually).   
 
 
 ### Important points
-- It was designed only for desktop use, it is not responsive at all.
+- The focus is on Backend so the Frontend was designed only for desktop use, it is not responsive at all.
 - For now it does not have persistence, only in memory. It's delegated in a repository.
 - Heroku was really good to deploy it. It was fast and very good integrated. The only bad part is the latency, at least with a free dyno.
 
 
 ### Pending Features:
 - Persistence
-- Game history / resume

@@ -79,7 +79,7 @@ export class NavBar extends React.Component {
           </div>
 
           <Button
-              href={url(this.state)}
+              href={gameURL(this.state)}
               variant="contained"
               size="large"
               style={{backgroundColor: "#FFBF46"}}
@@ -89,7 +89,7 @@ export class NavBar extends React.Component {
           </Button>
 
           <Button
-              href="/"
+              href={historyURL(this.state)}
               variant="contained"
               size="large"
               style={{backgroundColor: "#FFBF46"}}
@@ -102,7 +102,8 @@ export class NavBar extends React.Component {
   }
 }
 
-const url = ({difficulty, user}) => `/game/${user}/${difficulty}`;
+const gameURL = ({difficulty, user}) => `/game/${user}/new/${difficulty}`;
+const historyURL = ({user}) => `/history/${user}`;
 
 const newUser = (id, change) => {
   const restClient = new RestClient();

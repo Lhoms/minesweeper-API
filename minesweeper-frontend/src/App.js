@@ -1,7 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {NavBar} from "./Components/NavBar";
-import {Game} from "./screens/Game"
+import {History} from "./Components/History";
+import {Game} from "./Components/Game"
 import './App.css';
 
 function App() {
@@ -13,12 +14,15 @@ function App() {
               <NavBar/>
               <Switch>
                 <Route
-                    path="/game/:user/:difficulty"
+                    path="/game/:user/new/:difficulty"
                     component={Game}
                 />
-                <Route path="/game/:user/:id">
+                <Route path="/game/:user/:id"
                   component={Game}
-                </Route>
+                />
+                <Route path="/history/:user"
+                  component={History}
+                />
               </Switch>
             </Router>
           </div>
