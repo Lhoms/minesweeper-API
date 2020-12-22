@@ -48,8 +48,8 @@ module.exports.getByIdAndUser = (id, user) => {
 };
 
 
-module.exports.getByUser = (user) => {
-  const board = boardRepository.getByUser(user);
+module.exports.getByUser = (user, pageSize, pageNumber) => {
+  const board = boardRepository.getByUser(user, pageSize, pageNumber);
   if (!board) {
     throw new NotExistingBoard(user);
   }

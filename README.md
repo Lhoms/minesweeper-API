@@ -80,6 +80,7 @@ Once you reveal a bomb the game is finished and you should start another. Is not
 - The focus is on Backend so the Frontend was designed only for desktop use, it is not responsive at all.
 - For now it does not have persistence, only in memory. It's delegated in a repository.
 - Heroku was really good to deploy it. It was fast and very good integrated. The only bad part is the latency, at least with a free dyno.
+- API can paginate 'all user boards' endpoint just sending pageSize and pageNumber as query param, but the frontend is paginating in memory because they are going to be a few rows.
 
 
 ### Pending Features:

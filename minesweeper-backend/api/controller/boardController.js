@@ -5,8 +5,9 @@ const { getDifficulty } = require('../service/difficultyService');
 
 module.exports.getAllBoards = (req, res) => {
   const { user } = req.params;
+  const { pageSize, pageNumber } = req.query;
   try {
-    const boards = boardService.getByUser(user);
+    const boards = boardService.getByUser(user, pageSize, pageNumber);
     res.json(boards);
   } catch (e) {
     ErrorHandler.handle(res, e);

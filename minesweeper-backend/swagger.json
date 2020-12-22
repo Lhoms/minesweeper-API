@@ -15,7 +15,7 @@
   "schemes": [
     "http"
   ],
-  "host": "https://lhoms-minesweeper-back.herokuapp.com/",
+  "host": "lhoms-minesweeper-back.herokuapp.com/",
   "basePath": "/",
   "paths": {
     "game/{user}/board/{id}": {
@@ -102,21 +102,21 @@
             "in": "query",
             "description": "Height of the new custom board. Mandatory if difficulty is 'custom'.",
             "required": false,
-            "type": "string"
+            "type": "number"
           },
           {
             "name": "width",
             "in": "query",
             "description": "Width of the new custom board. Mandatory if difficulty is 'custom'.",
             "required": false,
-            "type": "string"
+            "type": "number"
           },
           {
             "name": "mines",
             "in": "query",
             "description": "Quantity of mines in the new custom board. Mandatory if difficulty is 'custom'.",
             "required": false,
-            "type": "string"
+            "type": "number"
           }
         ],
         "responses": {
@@ -153,6 +153,20 @@
             "description": "Username owner of the boards.",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Page size for paginating.",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Page number for paginating.",
+            "required": false,
+            "type": "number"
           }
         ],
         "responses": {
