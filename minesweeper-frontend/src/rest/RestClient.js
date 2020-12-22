@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const URL = "http://localhost:3001";
-//const URL = "https://lhoms-minesweeper-back.herokuapp.com";
+//const URL = "http://localhost:3001";
+const URL = "https://lhoms-minesweeper-back.herokuapp.com";
 const gameUrl = (user, rest) => `${URL}/game/${user}/board${rest || ''}`;
 
 export default class RestClient {
