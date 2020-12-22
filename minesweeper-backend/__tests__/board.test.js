@@ -45,6 +45,19 @@ describe('Get Board', () => {
   });
 });
 
+describe('Get All boards', () => {
+  test('Get existing boards for user', () => {
+    boardService.getNewBoard('new user' /* default config */);
+    const boards = boardService.getByUser('new user');
+    expect(boards.length).toEqual(1);
+  });
+
+  test('Gets empty array when user has no boards', () => {
+    const boards = boardService.getByUser('other user');
+    expect(boards.length).toEqual(0);
+  });
+});
+
 describe('Mine insertion', () => {
   test('Adjacent mines should update near mines value', () => {
     // Board without mines

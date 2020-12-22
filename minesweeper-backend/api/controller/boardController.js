@@ -3,6 +3,16 @@ const boardService = require('../service/boardService');
 const userService = require('../service/userService');
 const { getDifficulty } = require('../service/difficultyService');
 
+module.exports.getAllBoards = (req, res) => {
+  const { user } = req.params;
+  try {
+    const boards = boardService.getByUser(user);
+    res.json(boards);
+  } catch (e) {
+    ErrorHandler.handle(res, e);
+  }
+};
+
 module.exports.getById = (req, res) => {
   const { id, user } = req.params;
   try {

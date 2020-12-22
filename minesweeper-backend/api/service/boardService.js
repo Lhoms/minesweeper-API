@@ -47,6 +47,16 @@ module.exports.getByIdAndUser = (id, user) => {
   return board;
 };
 
+
+module.exports.getByUser = (user) => {
+  const board = boardRepository.getByUser(user);
+  if (!board) {
+    throw new NotExistingBoard(user);
+  }
+  return board;
+};
+
+
 const revealEmptyAdjacentMines = (board, mineX, mineY) => {
   for (let offsetY = -1; offsetY < 2; offsetY += 1) {
     for (let offsetX = -1; offsetX < 2; offsetX += 1) {
