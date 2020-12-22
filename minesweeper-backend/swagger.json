@@ -105,6 +105,50 @@
             }
           }
         }
+      },
+      "get": {
+        "summary": "Get all user boards",
+        "description": "Gets all minesweeper user boards",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "Username owner of the boards.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrieved",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/boardResponse"
+              }
+            }
+          },
+          "404": {
+            "description": "User not found.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
       }
     },
     "game/{user}/board/{difficulty}": {
