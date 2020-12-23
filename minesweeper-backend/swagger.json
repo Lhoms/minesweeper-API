@@ -329,7 +329,7 @@
         }
       }
     },
-    "/user": {
+    "user": {
       "get": {
         "summary": "Get all users",
         "description": "Gets all application users",
@@ -361,7 +361,7 @@
         }
       }
     },
-    "/user/{id}": {
+    "user/{id}": {
       "get": {
         "summary": "Get user",
         "description": "Gets username by id",
