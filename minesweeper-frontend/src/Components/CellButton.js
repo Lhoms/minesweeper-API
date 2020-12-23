@@ -23,16 +23,16 @@ export class Cell extends React.Component {
   }
 }
 
-const actionsOnClick = ({action, id, cell, user}) => {
+const actionsOnClick = async ({action, id, cell, user}) => {
   const restClient = new RestClient();
-  restClient.revealMine(id, cell.x, cell.y, user);
+  await restClient.revealMine(id, cell.x, cell.y, user);
   action();
 };
 
-const actionsOnRightClick = ({action, id, cell, user}, e) => {
+const actionsOnRightClick = async ({action, id, cell, user}, e) => {
   e.preventDefault();
   const restClient = new RestClient();
-  restClient.flagMine(id, cell.x, cell.y, user);
+  await restClient.flagMine(id, cell.x, cell.y, user);
   action();
 };
 

@@ -1,3 +1,4 @@
+const { v4: uuid } = require('uuid');
 const Board = require('../model/Board');
 const NotExistingBoard = require('../model/error/NotExistingBoard');
 const boardRepository = require('../repository/boardRepository');
@@ -30,32 +31,25 @@ const putMines = (board, height, width, mines) => {
   }
 };
 
-module.exports.getNewBoard = (user, height = 8, width = 8, mines = 10) => {
+module.exports.getNewBoard = async (user, height = 8, width = 8, mines = 10) => {
   // number of mines should be less than number of cells
   const boardMines = mines <= height * width ? mines : height * width;
-  const board = new Board(user, height, width, boardMines);
+  const board = new Board(uuid(), user, height, width, boardMines);
   putMines(board, height, width, boardMines);
-  boardRepository.save(board);
+  await boardRepository.save(board);
   return board;
 };
 
-module.exports.getByIdAndUser = (id, user) => {
-  const board = boardRepository.getByIdAndUser(id, user);
-  if (!board) {
+module.exports.getByIdAndUser = async (id, user) => {
+  const board = await boardRepository.getByIdAndUser(id, user);
+  if (!board.id) {
     throw new NotExistingBoard(id, user);
   }
   return board;
 };
 
-
-module.exports.getByUser = (user, pageSize, pageNumber) => {
-  const board = boardRepository.getByUser(user, pageSize, pageNumber);
-  if (!board) {
-    throw new NotExistingBoard(user);
-  }
-  return board;
-};
-
+// eslint-disable-next-line max-len
+module.exports.getByUser = (user, pageSize, pageNumber) => boardRepository.getByUser(user, pageSize, pageNumber);
 
 const revealEmptyAdjacentMines = (board, mineX, mineY) => {
   for (let offsetY = -1; offsetY < 2; offsetY += 1) {
@@ -117,8 +111,8 @@ const evaluateReveal = (board, x, y) => {
   evaluateEndGame(board);
 };
 
-module.exports.reveal = (boardId, user, x, y) => {
-  const board = this.getByIdAndUser(boardId, user);
+module.exports.reveal = async (boardId, user, x, y) => {
+  const board = await this.getByIdAndUser(boardId, user);
 
   if (board.finished) {
     return board;
@@ -129,20 +123,18 @@ module.exports.reveal = (boardId, user, x, y) => {
   }
 
   evaluateReveal(board, x, y);
-
-  boardRepository.save(board);
+  await boardRepository.save(board);
   return board;
 };
 
-module.exports.flagCell = (boardId, user, x, y) => {
-  const board = this.getByIdAndUser(boardId, user);
+module.exports.flagCell = async (boardId, user, x, y) => {
+  const board = await this.getByIdAndUser(boardId, user);
 
   if (board.finished) {
     return board;
   }
 
   board.rows[y][x].setFlag();
-
-  boardRepository.save(board);
+  await boardRepository.save(board);
   return board;
 };

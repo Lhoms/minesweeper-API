@@ -1,4 +1,3 @@
-const { v4: uuid } = require('uuid');
 const Cell = require('./Cell');
 
 // 8x8    10 mines (default)
@@ -7,9 +6,9 @@ const Cell = require('./Cell');
 // custom?
 
 class Board {
-  constructor(user, height, width, mines) {
+  constructor(id, user, height, width, mines) {
     // info
-    this.id = uuid();
+    this.id = id;
     this.user = user;
     this.height = height;
     this.width = width;

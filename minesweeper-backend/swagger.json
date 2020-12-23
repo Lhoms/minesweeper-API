@@ -329,7 +329,7 @@
         }
       }
     },
-    "/user": {
+    "user": {
       "get": {
         "summary": "Get all users",
         "description": "Gets all application users",
@@ -361,7 +361,7 @@
         }
       }
     },
-    "/user/{id}": {
+    "user/{id}": {
       "get": {
         "summary": "Get user",
         "description": "Gets username by id",
@@ -425,6 +425,39 @@
             "schema": {
               "$ref": "#/definitions/user"
             }
+          },
+          "400": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "DELETE user",
+        "description": "Deletes permanently username and associated boards in the application.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Username id.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully deleted"
           },
           "400": {
             "description": "Invalid request.",

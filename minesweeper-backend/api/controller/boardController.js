@@ -3,42 +3,42 @@ const boardService = require('../service/boardService');
 const userService = require('../service/userService');
 const { getDifficulty } = require('../service/difficultyService');
 
-module.exports.getAllBoards = (req, res) => {
+module.exports.getAllBoards = async (req, res) => {
   const { user } = req.params;
   const { pageSize, pageNumber } = req.query;
   try {
-    const boards = boardService.getByUser(user, pageSize, pageNumber);
-    res.json(boards);
+    const boards = await boardService.getByUser(user, pageSize, pageNumber);
+    await res.json(boards);
   } catch (e) {
     ErrorHandler.handle(res, e);
   }
 };
 
-module.exports.getById = (req, res) => {
+module.exports.getById = async (req, res) => {
   const { id, user } = req.params;
   try {
-    const board = boardService.getByIdAndUser(id, user);
-    res.json(board);
+    const board = await boardService.getByIdAndUser(id, user);
+    await res.json(board);
   } catch (e) {
     ErrorHandler.handle(res, e);
   }
 };
 
-module.exports.newBoard = (req, res) => {
+module.exports.newBoard = async (req, res) => {
   try {
     const { user } = req.params;
-    userService.validateUser(user);
+    await userService.validateUser(user);
 
     const type = getDifficulty(req.query);
     const { height, width, mines } = type;
-    const board = boardService.getNewBoard(user, height, width, mines);
-    res.json(board);
+    const board = await boardService.getNewBoard(user, height, width, mines);
+    await res.json(board);
   } catch (e) {
     ErrorHandler.handle(res, e);
   }
 };
 
-module.exports.revealCell = (req, res) => {
+module.exports.revealCell = async (req, res) => {
   const {
     id,
     user,
@@ -47,14 +47,14 @@ module.exports.revealCell = (req, res) => {
   } = req.params;
 
   try {
-    const board = boardService.reveal(id, user, Number(x), Number(y));
-    res.json(board);
+    const board = await boardService.reveal(id, user, Number(x), Number(y));
+    await res.json(board);
   } catch (e) {
     ErrorHandler.handle(res, e);
   }
 };
 
-module.exports.flagCell = (req, res) => {
+module.exports.flagCell = async (req, res) => {
   const {
     id,
     user,
@@ -63,8 +63,8 @@ module.exports.flagCell = (req, res) => {
   } = req.params;
 
   try {
-    const board = boardService.flagCell(id, user, Number(x), Number(y));
-    res.json(board);
+    const board = await boardService.flagCell(id, user, Number(x), Number(y));
+    await res.json(board);
   } catch (e) {
     ErrorHandler.handle(res, e);
   }
