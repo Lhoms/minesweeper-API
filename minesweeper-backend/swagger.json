@@ -13,7 +13,7 @@
     }
   },
   "schemes": [
-    "http"
+    "https"
   ],
   "host": "lhoms-minesweeper-back.herokuapp.com/",
   "basePath": "/",
