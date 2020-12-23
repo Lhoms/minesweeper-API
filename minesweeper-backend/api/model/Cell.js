@@ -1,12 +1,12 @@
 class Cell {
-  constructor(x, y, nearMines = 0, hasMine = false, flagged = false) {
+  constructor(x, y, nearMines = 0, hasMine = false, flagged = false, revealed = false, exploded = false) {
     this.x = x;
     this.y = y;
     this.nearMines = nearMines;
     this.hasMine = hasMine;
     this.flagged = flagged;
-    this.revealed = false;
-    this.exploded = false;
+    this.revealed = revealed;
+    this.exploded = exploded;
   }
 
   setFlag() {
@@ -31,7 +31,7 @@ class Cell {
 
   isRevealed() {
     return this.revealed;
-   }
+  }
 
   explode() {
     this.exploded = true;

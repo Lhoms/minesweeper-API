@@ -33,8 +33,8 @@ module.exports.newUser = async (req, res) => {
 module.exports.deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await userService.deleteUser(id);
-    await res.json(user);
+    await userService.deleteUser(id);
+    await res.json();
   } catch (e) {
     ErrorHandler.handle(res, e);
   }

@@ -18,16 +18,11 @@ module.exports.getUser = async (id) => {
 
 module.exports.validateUser = async (id) => {
   const user = await userRepository.get(id);
-  if (!user) {
+  if (!user.id) {
     throw new NotExistingUser(id);
   }
 };
 
-module.exports.deleteUser = async (id) => {
-  const user = await userRepository.delete(id);
-  if (!user) {
-    throw new NotExistingUser(id);
-  }
-};
+module.exports.deleteUser = (id) => userRepository.delete(id);
 
 module.exports.getAllUsers = () => userRepository.getAll();

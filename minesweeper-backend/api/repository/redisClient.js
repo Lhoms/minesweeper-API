@@ -12,4 +12,5 @@ module.exports = {
   hgetAllAsync: promisify(client.hgetall).bind(client),
   hsetAsync: promisify(client.hset).bind(client),
   hdelAsync: promisify(client.hdel).bind(client),
+  delAsync: promisify(client.del).bind(client),
 };

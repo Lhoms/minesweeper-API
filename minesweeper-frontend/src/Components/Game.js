@@ -13,7 +13,6 @@ export class Game extends React.Component {
 
   componentDidMount() {
     const {user, id, difficulty} = this.props.match.params;
-    console.log(user, id, difficulty);
     const restClient = new RestClient();
     getOrCreateGame(user, id, difficulty, restClient)
         .then(res => this.setState({...res.data}))
